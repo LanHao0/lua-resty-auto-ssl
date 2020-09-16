@@ -5,12 +5,6 @@ local parse_openssl_time = require "resty.auto-ssl.utils.parse_openssl_time"
 -- configured storage adapter (which allows for non-local storage mechanisms
 -- that can be shared across multiple servers, so this can work in a
 -- multi-server, load-balanced environment).
-return function(auto_ssl_instance)
-  if ngx.var.http_x_hook_secret ~= ngx.shared.auto_ssl_settings:get("hook_server:secret") then
-    ngx.log(ngx.ERR, "auto-ssl: unauthorized access to hook server (hook secret did not match)")
-    return ngx.exit(ngx.HTTP_UNAUTHORIZED)
-  end
-
   ngx.req.read_body()
   local params, params_err = ngx.req.get_post_args()
   if not params then

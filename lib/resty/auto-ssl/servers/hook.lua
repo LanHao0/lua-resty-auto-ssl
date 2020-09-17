@@ -5,6 +5,7 @@ local parse_openssl_time = require "resty.auto-ssl.utils.parse_openssl_time"
 -- configured storage adapter (which allows for non-local storage mechanisms
 -- that can be shared across multiple servers, so this can work in a
 -- multi-server, load-balanced environment).
+return function(auto_ssl_instance)
   ngx.req.read_body()
   local params, params_err = ngx.req.get_post_args()
   if not params then
